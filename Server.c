@@ -35,7 +35,7 @@ int getlen(char* buf){
 
   int len=0;
   for(int i=12;i<16;i++){
-    if(buf[i]=='X')
+    if(buf[i]=='Y')
       break;
     len=len*10+(buf[i]-'0');
   }
@@ -45,7 +45,7 @@ char *getmsgtype(char* buf){
 
   int count=0;
   for(int i=0;i<12;i++){
-    if(buf[i]=='X')
+    if(buf[i]=='Y')
       break;
     count++;
   }

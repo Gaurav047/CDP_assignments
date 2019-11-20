@@ -37,15 +37,18 @@ void* client(void* fd) {
 char *make_header(char* msgtype,int lenOfPayload){
   char* header = malloc(20*sizeof(char));
   int count;
+  // Append msgType to header
   for(count=0;count<strlen(msgtype);count++){
     header[count]=msgtype[count];
   }
 
+  // Append Y if header length is Less than 12
   while(count<12){
-    header[count]='X';
+    header[count]='Y';
     count++;
   }
   
+  // convert length of payload to char array
   int tc=0;
   char temp[4];
   while(lenOfPayload!=0){
@@ -55,18 +58,21 @@ char *make_header(char* msgtype,int lenOfPayload){
     tc++;
   }
 
+  // Append the the length in char array form to header
   for(int i=tc-1;i>=0;i--){
     header[count]=temp[i];
     count++;
   }
 
+  // If Message length is less than 16 than append 'Y'
   while(count<16){
-    header[count]='X';
+    header[count]='Y';
     count++;
   }
 
   return header;
 }
+
 // Server address
 struct hostent *buildServerAddr(struct sockaddr_in *serv_addr,
 	char *serverIP, int portno) {
